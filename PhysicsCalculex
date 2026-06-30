@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physics Calculator</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.container{
+    width:900px;
+    max-width:100%;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,.3);
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:#38bdf8;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#0ea5e9;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#0284c7;
+}
+
+.result{
+    margin-top:15px;
+    font-size:18px;
+    color:#22c55e;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>⚛ Physics Calculator</h1>
+
+<div class="grid">
+
+<div class="card">
+<h2>Force</h2>
+<p>F = m × a</p>
+
+<input id="mass" type="number" placeholder="Mass (kg)">
+<input id="acc" type="number" placeholder="Acceleration (m/s²)">
+<button onclick="force()">Calculate</button>
+
+<div class="result" id="forceResult"></div>
+</div>
+
+
+<div class="card">
+<h2>Speed</h2>
+<p>v = d / t</p>
+
+<input id="distance" type="number" placeholder="Distance (m)">
+<input id="time" type="number" placeholder="Time (s)">
+<button onclick="speed()">Calculate</button>
+
+<div class="result" id="speedResult"></div>
+</div>
+
+
+<div class="card">
+<h2>Kinetic Energy</h2>
+<p>KE = ½mv²</p>
+
+<input id="kemass" type="number" placeholder="Mass (kg)">
+<input id="velocity" type="number" placeholder="Velocity (m/s)">
+<button onclick="ke()">Calculate</button>
+
+<div class="result" id="keResult"></div>
+</div>
+
+
+<div class="card">
+<h2>Ohm's Law</h2>
+<p>V = I × R</p>
+
+<input id="current" type="number" placeholder="Current (A)">
+<input id="resistance" type="number" placeholder="Resistance (Ω)">
+<button onclick="ohm()">Calculate</button>
+
+<div class="result" id="ohmResult"></div>
+</div>
+
+
+<div class="card">
+<h2>Density</h2>
+<p>ρ = Mass / Volume</p>
+
+<input id="dmass" type="number" placeholder="Mass (kg)">
+<input id="volume" type="number" placeholder="Volume (m³)">
+<button onclick="density()">Calculate</button>
+
+<div class="result" id="densityResult"></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function force(){
+let m=parseFloat(document.getElementById("mass").value);
+let a=parseFloat(document.getElementById("acc").value);
+
+if(isNaN(m)||isNaN(a)) return;
+
+document.getElementById("forceResult").innerHTML=
+"Force = "+(m*a).toFixed(2)+" N";
+}
+
+function speed(){
+let d=parseFloat(document.getElementById("distance").value);
+let t=parseFloat(document.getElementById("time").value);
+
+if(isNaN(d)||isNaN(t)||t==0) return;
+
+document.getElementById("speedResult").innerHTML=
+"Speed = "+(d/t).toFixed(2)+" m/s";
+}
+
+function ke(){
+let m=parseFloat(document.getElementById("kemass").value);
+let v=parseFloat(document.getElementById("velocity").value);
+
+if(isNaN(m)||isNaN(v)) return;
+
+document.getElementById("keResult").innerHTML=
+"Kinetic Energy = "+(0.5*m*v*v).toFixed(2)+" J";
+}
+
+function ohm(){
+let i=parseFloat(document.getElementById("current").value);
+let r=parseFloat(document.getElementById("resistance").value);
+
+if(isNaN(i)||isNaN(r)) return;
+
+document.getElementById("ohmResult").innerHTML=
+"Voltage = "+(i*r).toFixed(2)+" V";
+}
+
+function density(){
+let m=parseFloat(document.getElementById("dmass").value);
+let v=parseFloat(document.getElementById("volume").value);
+
+if(isNaN(m)||isNaN(v)||v==0) return;
+
+document.getElementById("densityResult").innerHTML=
+"Density = "+(m/v).toFixed(2)+" kg/m³";
+}
+
+</script>
+
+</body>
+</html>
