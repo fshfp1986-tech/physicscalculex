@@ -111,7 +111,7 @@ label{
     margin:10px 0 6px;
 }
 
-input, select{
+input{
     width:100%;
     padding:12px;
     border-radius:10px;
@@ -122,17 +122,27 @@ input, select{
     outline:none;
 }
 
+.btn-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:14px;
+}
+
 button{
     width:100%;
-    margin-top:14px;
     padding:13px;
     border:none;
     border-radius:12px;
     background:linear-gradient(135deg,#06b6d4,#2563eb);
     color:white;
-    font-size:16px;
+    font-size:15px;
     font-weight:bold;
     cursor:pointer;
+}
+
+.clear-btn{
+    background:linear-gradient(135deg,#64748b,#334155);
 }
 
 button:active{
@@ -198,8 +208,13 @@ button:active{
     .header h1{
         font-size:24px;
     }
+
     .card{
         padding:15px;
+    }
+
+    .btn-row{
+        grid-template-columns:1fr;
     }
 }
 </style>
@@ -227,184 +242,300 @@ button:active{
         <div class="card calc-card" data-name="velocity motion kinematics">
             <h2>Final Velocity</h2>
             <div class="formula">Formula: v = u + at</div>
+
             <label>Initial Velocity u (m/s)</label>
             <input id="u1" type="number" placeholder="Example: 10">
+
             <label>Acceleration a (m/s²)</label>
             <input id="a1" type="number" placeholder="Example: 2">
+
             <label>Time t (s)</label>
             <input id="t1" type="number" placeholder="Example: 5">
-            <button onclick="finalVelocity()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="finalVelocity()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r1')">Clear Result</button>
+            </div>
+
             <div class="result" id="r1">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="distance displacement motion">
             <h2>Distance / Displacement</h2>
             <div class="formula">Formula: s = ut + ½at²</div>
+
             <label>Initial Velocity u (m/s)</label>
             <input id="u2" type="number">
+
             <label>Acceleration a (m/s²)</label>
             <input id="a2" type="number">
+
             <label>Time t (s)</label>
             <input id="t2" type="number">
-            <button onclick="distanceCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="distanceCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r2')">Clear Result</button>
+            </div>
+
             <div class="result" id="r2">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="force newton second law">
             <h2>Force</h2>
             <div class="formula">Formula: F = ma</div>
+
             <label>Mass m (kg)</label>
             <input id="m3" type="number">
+
             <label>Acceleration a (m/s²)</label>
             <input id="a3" type="number">
-            <button onclick="forceCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="forceCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r3')">Clear Result</button>
+            </div>
+
             <div class="result" id="r3">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="weight gravity mass">
             <h2>Weight</h2>
             <div class="formula">Formula: W = mg</div>
+
             <label>Mass m (kg)</label>
             <input id="m4" type="number">
+
             <label>Gravity g (m/s²)</label>
             <input id="g4" type="number" value="9.8">
-            <button onclick="weightCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="weightCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r4')">Clear Result</button>
+            </div>
+
             <div class="result" id="r4">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="kinetic energy">
             <h2>Kinetic Energy</h2>
             <div class="formula">Formula: KE = ½mv²</div>
+
             <label>Mass m (kg)</label>
             <input id="m5" type="number">
+
             <label>Velocity v (m/s)</label>
             <input id="v5" type="number">
-            <button onclick="kineticCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="kineticCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r5')">Clear Result</button>
+            </div>
+
             <div class="result" id="r5">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="potential energy height gravity">
             <h2>Potential Energy</h2>
             <div class="formula">Formula: PE = mgh</div>
+
             <label>Mass m (kg)</label>
             <input id="m6" type="number">
+
             <label>Gravity g (m/s²)</label>
             <input id="g6" type="number" value="9.8">
+
             <label>Height h (m)</label>
             <input id="h6" type="number">
-            <button onclick="potentialCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="potentialCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r6')">Clear Result</button>
+            </div>
+
             <div class="result" id="r6">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="power work time">
             <h2>Power</h2>
             <div class="formula">Formula: P = W / t</div>
+
             <label>Work W (J)</label>
             <input id="w7" type="number">
+
             <label>Time t (s)</label>
             <input id="t7" type="number">
-            <button onclick="powerCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="powerCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r7')">Clear Result</button>
+            </div>
+
             <div class="result" id="r7">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="ohm law voltage current resistance electricity">
             <h2>Ohm's Law</h2>
             <div class="formula">Formula: V = IR</div>
+
             <label>Current I (A)</label>
             <input id="i8" type="number">
+
             <label>Resistance R (Ω)</label>
             <input id="r8input" type="number">
-            <button onclick="ohmCalc()">Calculate Voltage</button>
+
+            <div class="btn-row">
+                <button onclick="ohmCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r8')">Clear Result</button>
+            </div>
+
             <div class="result" id="r8">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="wave speed frequency wavelength">
             <h2>Wave Speed</h2>
             <div class="formula">Formula: v = fλ</div>
+
             <label>Frequency f (Hz)</label>
             <input id="f9" type="number">
+
             <label>Wavelength λ (m)</label>
             <input id="l9" type="number">
-            <button onclick="waveCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="waveCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r9')">Clear Result</button>
+            </div>
+
             <div class="result" id="r9">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="density mass volume">
             <h2>Density</h2>
             <div class="formula">Formula: ρ = m / V</div>
+
             <label>Mass m (kg)</label>
             <input id="m10" type="number">
+
             <label>Volume V (m³)</label>
             <input id="v10" type="number">
-            <button onclick="densityCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="densityCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r10')">Clear Result</button>
+            </div>
+
             <div class="result" id="r10">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="pressure force area">
             <h2>Pressure</h2>
             <div class="formula">Formula: P = F / A</div>
+
             <label>Force F (N)</label>
             <input id="f11" type="number">
+
             <label>Area A (m²)</label>
             <input id="a11" type="number">
-            <button onclick="pressureCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="pressureCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r11')">Clear Result</button>
+            </div>
+
             <div class="result" id="r11">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="momentum mass velocity">
             <h2>Momentum</h2>
             <div class="formula">Formula: p = mv</div>
+
             <label>Mass m (kg)</label>
             <input id="m12" type="number">
+
             <label>Velocity v (m/s)</label>
             <input id="v12" type="number">
-            <button onclick="momentumCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="momentumCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r12')">Clear Result</button>
+            </div>
+
             <div class="result" id="r12">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="frequency period">
             <h2>Frequency</h2>
             <div class="formula">Formula: f = 1 / T</div>
+
             <label>Time Period T (s)</label>
             <input id="t13" type="number">
-            <button onclick="frequencyCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="frequencyCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r13')">Clear Result</button>
+            </div>
+
             <div class="result" id="r13">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="spring hooke law force constant extension">
             <h2>Hooke's Law</h2>
             <div class="formula">Formula: F = kx</div>
+
             <label>Spring Constant k (N/m)</label>
             <input id="k14" type="number">
+
             <label>Extension x (m)</label>
             <input id="x14" type="number">
-            <button onclick="hookeCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="hookeCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r14')">Clear Result</button>
+            </div>
+
             <div class="result" id="r14">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="series resistance resistor electricity">
             <h2>Series Resistance</h2>
             <div class="formula">Formula: R = R1 + R2 + R3</div>
+
             <label>R1 (Ω)</label>
             <input id="sr1" type="number">
+
             <label>R2 (Ω)</label>
             <input id="sr2" type="number">
+
             <label>R3 (Ω)</label>
             <input id="sr3" type="number">
-            <button onclick="seriesCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="seriesCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r15')">Clear Result</button>
+            </div>
+
             <div class="result" id="r15">Result will appear here</div>
         </div>
 
         <div class="card calc-card" data-name="parallel resistance resistor electricity">
             <h2>Parallel Resistance</h2>
             <div class="formula">Formula: 1/R = 1/R1 + 1/R2 + 1/R3</div>
+
             <label>R1 (Ω)</label>
             <input id="pr1" type="number">
+
             <label>R2 (Ω)</label>
             <input id="pr2" type="number">
+
             <label>R3 (Ω)</label>
             <input id="pr3" type="number">
-            <button onclick="parallelCalc()">Calculate</button>
+
+            <div class="btn-row">
+                <button onclick="parallelCalc()">Calculate</button>
+                <button class="clear-btn" onclick="clearResult('r16')">Clear Result</button>
+            </div>
+
             <div class="result" id="r16">Result will appear here</div>
         </div>
 
@@ -459,6 +590,10 @@ function isBad(...nums){
 
 function show(id, text){
     document.getElementById(id).innerHTML = text;
+}
+
+function clearResult(id){
+    document.getElementById(id).innerHTML = "Result will appear here";
 }
 
 function finalVelocity(){
@@ -566,7 +701,7 @@ function hookeCalc(){
 function seriesCalc(){
     let r1 = val("sr1"), r2 = val("sr2"), r3 = val("sr3");
     if(isBad(r1,r2,r3)) return show("r15","Please enter all values.");
-    let total = r1+r2+r3;
+    let total = r1 + r2 + r3;
     show("r15", "Total Resistance = <b>" + total.toFixed(3) + " Ω</b>");
 }
 
@@ -574,7 +709,7 @@ function parallelCalc(){
     let r1 = val("pr1"), r2 = val("pr2"), r3 = val("pr3");
     if(isBad(r1,r2,r3)) return show("r16","Please enter all values.");
     if(r1 === 0 || r2 === 0 || r3 === 0) return show("r16","Resistance cannot be zero.");
-    let total = 1 / ((1/r1)+(1/r2)+(1/r3));
+    let total = 1 / ((1/r1) + (1/r2) + (1/r3));
     show("r16", "Total Resistance = <b>" + total.toFixed(3) + " Ω</b>");
 }
 
