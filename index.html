@@ -3,220 +3,596 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Physics Calculator</title>
+<title>Physics Calculex - Physics Calculator</title>
 
 <style>
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:Arial,Helvetica,sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-    background:#0f172a;
-    color:white;
+    background:linear-gradient(135deg,#020617,#0f172a,#172554);
+    color:#ffffff;
+    min-height:100vh;
+}
+
+.header{
+    padding:28px 16px;
+    text-align:center;
+    background:rgba(15,23,42,0.85);
+    border-bottom:1px solid rgba(56,189,248,0.25);
+}
+
+.logo{
+    width:76px;
+    height:76px;
+    margin:0 auto 12px;
+    border-radius:20px;
+    background:radial-gradient(circle,#22d3ee,#2563eb,#020617);
     display:flex;
-    justify-content:center;
     align-items:center;
-    padding:40px;
+    justify-content:center;
+    box-shadow:0 0 25px rgba(34,211,238,0.55);
+    font-size:38px;
+    font-weight:bold;
+}
+
+.header h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.header p{
+    color:#cbd5e1;
+    font-size:15px;
+    max-width:720px;
+    margin:auto;
+    line-height:1.6;
 }
 
 .container{
-    width:900px;
+    width:1100px;
     max-width:100%;
+    margin:auto;
+    padding:24px 14px 90px;
 }
 
-h1{
-    text-align:center;
-    margin-bottom:30px;
+.search-box{
+    margin-bottom:22px;
+}
+
+.search-box input{
+    width:100%;
+    padding:16px;
+    border-radius:14px;
+    border:1px solid rgba(56,189,248,0.35);
+    background:#020617;
+    color:white;
+    font-size:16px;
+    outline:none;
 }
 
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
+    gap:18px;
 }
 
 .card{
-    background:#1e293b;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 0 10px rgba(0,0,0,.3);
+    background:rgba(15,23,42,0.92);
+    border:1px solid rgba(56,189,248,0.25);
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
 .card h2{
-    margin-bottom:15px;
     color:#38bdf8;
+    font-size:20px;
+    margin-bottom:8px;
 }
 
-input{
-    width:100%;
+.formula{
+    color:#a5f3fc;
+    background:rgba(8,47,73,0.45);
     padding:10px;
-    margin:8px 0;
-    border:none;
-    border-radius:8px;
-    font-size:16px;
+    border-radius:10px;
+    font-size:14px;
+    margin-bottom:14px;
+}
+
+label{
+    display:block;
+    color:#e2e8f0;
+    font-size:14px;
+    margin:10px 0 6px;
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid rgba(148,163,184,0.35);
+    background:#020617;
+    color:#ffffff;
+    font-size:15px;
+    outline:none;
 }
 
 button{
     width:100%;
-    padding:10px;
+    margin-top:14px;
+    padding:13px;
     border:none;
-    border-radius:8px;
-    background:#0ea5e9;
+    border-radius:12px;
+    background:linear-gradient(135deg,#06b6d4,#2563eb);
     color:white;
     font-size:16px;
+    font-weight:bold;
     cursor:pointer;
-    margin-top:10px;
 }
 
-button:hover{
-    background:#0284c7;
+button:active{
+    transform:scale(0.98);
 }
 
 .result{
-    margin-top:15px;
-    font-size:18px;
-    color:#22c55e;
-    font-weight:bold;
+    margin-top:14px;
+    padding:13px;
+    border-radius:12px;
+    background:rgba(2,6,23,0.75);
+    color:#bbf7d0;
+    border:1px solid rgba(34,197,94,0.25);
+    min-height:45px;
+    line-height:1.5;
+}
+
+.info-section{
+    margin-top:24px;
+    background:rgba(15,23,42,0.9);
+    border-radius:18px;
+    padding:18px;
+    border:1px solid rgba(56,189,248,0.25);
+    line-height:1.7;
+    color:#dbeafe;
+}
+
+.info-section h2{
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#020617;
+    border-top:1px solid rgba(56,189,248,0.3);
+    display:flex;
+    justify-content:space-around;
+    padding:10px 6px;
+    z-index:10;
+}
+
+.bottom-nav a{
+    color:#e0f2fe;
+    text-decoration:none;
+    font-size:13px;
+    text-align:center;
+}
+
+.small{
+    font-size:13px;
+    color:#cbd5e1;
+}
+
+.hidden{
+    display:none;
+}
+
+@media(max-width:480px){
+    .header h1{
+        font-size:24px;
+    }
+    .card{
+        padding:15px;
+    }
 }
 </style>
 </head>
+
 <body>
+
+<header class="header">
+    <div class="logo">Σ</div>
+    <h1>Physics Calculex</h1>
+    <p>
+        A fast and easy physics calculator for students, teachers and learners.
+        Calculate motion, force, energy, electricity, waves, pressure, density and more.
+    </p>
+</header>
 
 <div class="container">
 
-<h1>⚛ Physics Calculator</h1>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search calculator e.g. force, velocity, Ohm, energy..." onkeyup="searchCards()">
+    </div>
 
-<div class="grid">
+    <div class="grid">
 
-<div class="card">
-<h2>Force</h2>
-<p>F = m × a</p>
+        <div class="card calc-card" data-name="velocity motion kinematics">
+            <h2>Final Velocity</h2>
+            <div class="formula">Formula: v = u + at</div>
+            <label>Initial Velocity u (m/s)</label>
+            <input id="u1" type="number" placeholder="Example: 10">
+            <label>Acceleration a (m/s²)</label>
+            <input id="a1" type="number" placeholder="Example: 2">
+            <label>Time t (s)</label>
+            <input id="t1" type="number" placeholder="Example: 5">
+            <button onclick="finalVelocity()">Calculate</button>
+            <div class="result" id="r1">Result will appear here</div>
+        </div>
 
-<input id="mass" type="number" placeholder="Mass (kg)">
-<input id="acc" type="number" placeholder="Acceleration (m/s²)">
-<button onclick="force()">Calculate</button>
+        <div class="card calc-card" data-name="distance displacement motion">
+            <h2>Distance / Displacement</h2>
+            <div class="formula">Formula: s = ut + ½at²</div>
+            <label>Initial Velocity u (m/s)</label>
+            <input id="u2" type="number">
+            <label>Acceleration a (m/s²)</label>
+            <input id="a2" type="number">
+            <label>Time t (s)</label>
+            <input id="t2" type="number">
+            <button onclick="distanceCalc()">Calculate</button>
+            <div class="result" id="r2">Result will appear here</div>
+        </div>
 
-<div class="result" id="forceResult"></div>
+        <div class="card calc-card" data-name="force newton second law">
+            <h2>Force</h2>
+            <div class="formula">Formula: F = ma</div>
+            <label>Mass m (kg)</label>
+            <input id="m3" type="number">
+            <label>Acceleration a (m/s²)</label>
+            <input id="a3" type="number">
+            <button onclick="forceCalc()">Calculate</button>
+            <div class="result" id="r3">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="weight gravity mass">
+            <h2>Weight</h2>
+            <div class="formula">Formula: W = mg</div>
+            <label>Mass m (kg)</label>
+            <input id="m4" type="number">
+            <label>Gravity g (m/s²)</label>
+            <input id="g4" type="number" value="9.8">
+            <button onclick="weightCalc()">Calculate</button>
+            <div class="result" id="r4">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="kinetic energy">
+            <h2>Kinetic Energy</h2>
+            <div class="formula">Formula: KE = ½mv²</div>
+            <label>Mass m (kg)</label>
+            <input id="m5" type="number">
+            <label>Velocity v (m/s)</label>
+            <input id="v5" type="number">
+            <button onclick="kineticCalc()">Calculate</button>
+            <div class="result" id="r5">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="potential energy height gravity">
+            <h2>Potential Energy</h2>
+            <div class="formula">Formula: PE = mgh</div>
+            <label>Mass m (kg)</label>
+            <input id="m6" type="number">
+            <label>Gravity g (m/s²)</label>
+            <input id="g6" type="number" value="9.8">
+            <label>Height h (m)</label>
+            <input id="h6" type="number">
+            <button onclick="potentialCalc()">Calculate</button>
+            <div class="result" id="r6">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="power work time">
+            <h2>Power</h2>
+            <div class="formula">Formula: P = W / t</div>
+            <label>Work W (J)</label>
+            <input id="w7" type="number">
+            <label>Time t (s)</label>
+            <input id="t7" type="number">
+            <button onclick="powerCalc()">Calculate</button>
+            <div class="result" id="r7">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="ohm law voltage current resistance electricity">
+            <h2>Ohm's Law</h2>
+            <div class="formula">Formula: V = IR</div>
+            <label>Current I (A)</label>
+            <input id="i8" type="number">
+            <label>Resistance R (Ω)</label>
+            <input id="r8input" type="number">
+            <button onclick="ohmCalc()">Calculate Voltage</button>
+            <div class="result" id="r8">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="wave speed frequency wavelength">
+            <h2>Wave Speed</h2>
+            <div class="formula">Formula: v = fλ</div>
+            <label>Frequency f (Hz)</label>
+            <input id="f9" type="number">
+            <label>Wavelength λ (m)</label>
+            <input id="l9" type="number">
+            <button onclick="waveCalc()">Calculate</button>
+            <div class="result" id="r9">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="density mass volume">
+            <h2>Density</h2>
+            <div class="formula">Formula: ρ = m / V</div>
+            <label>Mass m (kg)</label>
+            <input id="m10" type="number">
+            <label>Volume V (m³)</label>
+            <input id="v10" type="number">
+            <button onclick="densityCalc()">Calculate</button>
+            <div class="result" id="r10">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="pressure force area">
+            <h2>Pressure</h2>
+            <div class="formula">Formula: P = F / A</div>
+            <label>Force F (N)</label>
+            <input id="f11" type="number">
+            <label>Area A (m²)</label>
+            <input id="a11" type="number">
+            <button onclick="pressureCalc()">Calculate</button>
+            <div class="result" id="r11">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="momentum mass velocity">
+            <h2>Momentum</h2>
+            <div class="formula">Formula: p = mv</div>
+            <label>Mass m (kg)</label>
+            <input id="m12" type="number">
+            <label>Velocity v (m/s)</label>
+            <input id="v12" type="number">
+            <button onclick="momentumCalc()">Calculate</button>
+            <div class="result" id="r12">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="frequency period">
+            <h2>Frequency</h2>
+            <div class="formula">Formula: f = 1 / T</div>
+            <label>Time Period T (s)</label>
+            <input id="t13" type="number">
+            <button onclick="frequencyCalc()">Calculate</button>
+            <div class="result" id="r13">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="spring hooke law force constant extension">
+            <h2>Hooke's Law</h2>
+            <div class="formula">Formula: F = kx</div>
+            <label>Spring Constant k (N/m)</label>
+            <input id="k14" type="number">
+            <label>Extension x (m)</label>
+            <input id="x14" type="number">
+            <button onclick="hookeCalc()">Calculate</button>
+            <div class="result" id="r14">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="series resistance resistor electricity">
+            <h2>Series Resistance</h2>
+            <div class="formula">Formula: R = R1 + R2 + R3</div>
+            <label>R1 (Ω)</label>
+            <input id="sr1" type="number">
+            <label>R2 (Ω)</label>
+            <input id="sr2" type="number">
+            <label>R3 (Ω)</label>
+            <input id="sr3" type="number">
+            <button onclick="seriesCalc()">Calculate</button>
+            <div class="result" id="r15">Result will appear here</div>
+        </div>
+
+        <div class="card calc-card" data-name="parallel resistance resistor electricity">
+            <h2>Parallel Resistance</h2>
+            <div class="formula">Formula: 1/R = 1/R1 + 1/R2 + 1/R3</div>
+            <label>R1 (Ω)</label>
+            <input id="pr1" type="number">
+            <label>R2 (Ω)</label>
+            <input id="pr2" type="number">
+            <label>R3 (Ω)</label>
+            <input id="pr3" type="number">
+            <button onclick="parallelCalc()">Calculate</button>
+            <div class="result" id="r16">Result will appear here</div>
+        </div>
+
+    </div>
+
+    <section id="about" class="info-section">
+        <h2>About Physics Calculex</h2>
+        <p>
+            Physics Calculex is a simple educational physics calculator app designed for quick calculations.
+            It helps users calculate commonly used physics values such as velocity, force, energy,
+            pressure, density, momentum, wave speed, frequency, Ohm's law and resistance.
+        </p>
+    </section>
+
+    <section id="privacy" class="info-section">
+        <h2>Privacy Policy</h2>
+        <p>
+            Physics Calculex does not require login, does not collect personal information,
+            does not access contacts, location, camera, microphone, SMS, files or sensitive device data.
+            Calculations are performed inside the app/browser on the user's device.
+        </p>
+        <p class="small">
+            If ads, analytics or third-party SDKs are added in the future, this privacy policy and Google Play Data Safety section must be updated accordingly.
+        </p>
+    </section>
+
+    <section id="disclaimer" class="info-section">
+        <h2>Educational Disclaimer</h2>
+        <p>
+            This app is made for educational and learning purposes. Results are based on standard physics formulas.
+            Users should verify important academic, laboratory or engineering calculations with a teacher, professional or trusted reference.
+        </p>
+    </section>
+
 </div>
 
+<nav class="bottom-nav">
+    <a href="#">Home</a>
+    <a href="#about">About</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#disclaimer">Disclaimer</a>
+</nav>
 
-<div class="card">
-<h2>Speed</h2>
-<p>v = d / t</p>
-
-<input id="distance" type="number" placeholder="Distance (m)">
-<input id="time" type="number" placeholder="Time (s)">
-<button onclick="speed()">Calculate</button>
-
-<div class="result" id="speedResult"></div>
-</div>
-
-
-<div class="card">
-<h2>Kinetic Energy</h2>
-<p>KE = ½mv²</p>
-
-<input id="kemass" type="number" placeholder="Mass (kg)">
-<input id="velocity" type="number" placeholder="Velocity (m/s)">
-<button onclick="ke()">Calculate</button>
-
-<div class="result" id="keResult"></div>
-</div>
-
-
-<div class="card">
-<h2>Ohm's Law</h2>
-<p>V = I × R</p>
-
-<input id="current" type="number" placeholder="Current (A)">
-<input id="resistance" type="number" placeholder="Resistance (Ω)">
-<button onclick="ohm()">Calculate</button>
-
-<div class="result" id="ohmResult"></div>
-</div>
-
-
-<div class="card">
-<h2>Density</h2>
-<p>ρ = Mass / Volume</p>
-
-<input id="dmass" type="number" placeholder="Mass (kg)">
-<input id="volume" type="number" placeholder="Volume (m³)">
-<button onclick="density()">Calculate</button>
-
-<div class="result" id="densityResult"></div>
-</div>
-
-</div>
-
-</div>
-<footer style="text-align:center; margin-top:40px; padding:20px;">
-    <a href="privacy-policy.html"
-       target="_blank"
-       style="
-            color:#38bdf8;
-            text-decoration:none;
-            font-size:18px;
-            font-weight:bold;
-       ">
-        📜 Privacy Policy
-    </a>
-</footer>
 <script>
-
-function force(){
-let m=parseFloat(document.getElementById("mass").value);
-let a=parseFloat(document.getElementById("acc").value);
-
-if(isNaN(m)||isNaN(a)) return;
-
-document.getElementById("forceResult").innerHTML=
-"Force = "+(m*a).toFixed(2)+" N";
+function val(id){
+    return parseFloat(document.getElementById(id).value);
 }
 
-function speed(){
-let d=parseFloat(document.getElementById("distance").value);
-let t=parseFloat(document.getElementById("time").value);
-
-if(isNaN(d)||isNaN(t)||t==0) return;
-
-document.getElementById("speedResult").innerHTML=
-"Speed = "+(d/t).toFixed(2)+" m/s";
+function isBad(...nums){
+    return nums.some(n => isNaN(n));
 }
 
-function ke(){
-let m=parseFloat(document.getElementById("kemass").value);
-let v=parseFloat(document.getElementById("velocity").value);
-
-if(isNaN(m)||isNaN(v)) return;
-
-document.getElementById("keResult").innerHTML=
-"Kinetic Energy = "+(0.5*m*v*v).toFixed(2)+" J";
+function show(id, text){
+    document.getElementById(id).innerHTML = text;
 }
 
-function ohm(){
-let i=parseFloat(document.getElementById("current").value);
-let r=parseFloat(document.getElementById("resistance").value);
-
-if(isNaN(i)||isNaN(r)) return;
-
-document.getElementById("ohmResult").innerHTML=
-"Voltage = "+(i*r).toFixed(2)+" V";
+function finalVelocity(){
+    let u = val("u1"), a = val("a1"), t = val("t1");
+    if(isBad(u,a,t)) return show("r1","Please enter all values.");
+    let v = u + a*t;
+    show("r1", "Final Velocity = <b>" + v.toFixed(3) + " m/s</b>");
 }
 
-function density(){
-let m=parseFloat(document.getElementById("dmass").value);
-let v=parseFloat(document.getElementById("volume").value);
-
-if(isNaN(m)||isNaN(v)||v==0) return;
-
-document.getElementById("densityResult").innerHTML=
-"Density = "+(m/v).toFixed(2)+" kg/m³";
+function distanceCalc(){
+    let u = val("u2"), a = val("a2"), t = val("t2");
+    if(isBad(u,a,t)) return show("r2","Please enter all values.");
+    let s = (u*t) + (0.5*a*t*t);
+    show("r2", "Distance = <b>" + s.toFixed(3) + " m</b>");
 }
 
+function forceCalc(){
+    let m = val("m3"), a = val("a3");
+    if(isBad(m,a)) return show("r3","Please enter all values.");
+    let f = m*a;
+    show("r3", "Force = <b>" + f.toFixed(3) + " N</b>");
+}
+
+function weightCalc(){
+    let m = val("m4"), g = val("g4");
+    if(isBad(m,g)) return show("r4","Please enter all values.");
+    let w = m*g;
+    show("r4", "Weight = <b>" + w.toFixed(3) + " N</b>");
+}
+
+function kineticCalc(){
+    let m = val("m5"), v = val("v5");
+    if(isBad(m,v)) return show("r5","Please enter all values.");
+    let ke = 0.5*m*v*v;
+    show("r5", "Kinetic Energy = <b>" + ke.toFixed(3) + " J</b>");
+}
+
+function potentialCalc(){
+    let m = val("m6"), g = val("g6"), h = val("h6");
+    if(isBad(m,g,h)) return show("r6","Please enter all values.");
+    let pe = m*g*h;
+    show("r6", "Potential Energy = <b>" + pe.toFixed(3) + " J</b>");
+}
+
+function powerCalc(){
+    let w = val("w7"), t = val("t7");
+    if(isBad(w,t)) return show("r7","Please enter all values.");
+    if(t === 0) return show("r7","Time cannot be zero.");
+    let p = w/t;
+    show("r7", "Power = <b>" + p.toFixed(3) + " W</b>");
+}
+
+function ohmCalc(){
+    let i = val("i8"), r = val("r8input");
+    if(isBad(i,r)) return show("r8","Please enter all values.");
+    let v = i*r;
+    show("r8", "Voltage = <b>" + v.toFixed(3) + " V</b>");
+}
+
+function waveCalc(){
+    let f = val("f9"), l = val("l9");
+    if(isBad(f,l)) return show("r9","Please enter all values.");
+    let v = f*l;
+    show("r9", "Wave Speed = <b>" + v.toFixed(3) + " m/s</b>");
+}
+
+function densityCalc(){
+    let m = val("m10"), v = val("v10");
+    if(isBad(m,v)) return show("r10","Please enter all values.");
+    if(v === 0) return show("r10","Volume cannot be zero.");
+    let d = m/v;
+    show("r10", "Density = <b>" + d.toFixed(3) + " kg/m³</b>");
+}
+
+function pressureCalc(){
+    let f = val("f11"), a = val("a11");
+    if(isBad(f,a)) return show("r11","Please enter all values.");
+    if(a === 0) return show("r11","Area cannot be zero.");
+    let p = f/a;
+    show("r11", "Pressure = <b>" + p.toFixed(3) + " Pa</b>");
+}
+
+function momentumCalc(){
+    let m = val("m12"), v = val("v12");
+    if(isBad(m,v)) return show("r12","Please enter all values.");
+    let p = m*v;
+    show("r12", "Momentum = <b>" + p.toFixed(3) + " kg·m/s</b>");
+}
+
+function frequencyCalc(){
+    let t = val("t13");
+    if(isBad(t)) return show("r13","Please enter time period.");
+    if(t === 0) return show("r13","Time period cannot be zero.");
+    let f = 1/t;
+    show("r13", "Frequency = <b>" + f.toFixed(3) + " Hz</b>");
+}
+
+function hookeCalc(){
+    let k = val("k14"), x = val("x14");
+    if(isBad(k,x)) return show("r14","Please enter all values.");
+    let f = k*x;
+    show("r14", "Spring Force = <b>" + f.toFixed(3) + " N</b>");
+}
+
+function seriesCalc(){
+    let r1 = val("sr1"), r2 = val("sr2"), r3 = val("sr3");
+    if(isBad(r1,r2,r3)) return show("r15","Please enter all values.");
+    let total = r1+r2+r3;
+    show("r15", "Total Resistance = <b>" + total.toFixed(3) + " Ω</b>");
+}
+
+function parallelCalc(){
+    let r1 = val("pr1"), r2 = val("pr2"), r3 = val("pr3");
+    if(isBad(r1,r2,r3)) return show("r16","Please enter all values.");
+    if(r1 === 0 || r2 === 0 || r3 === 0) return show("r16","Resistance cannot be zero.");
+    let total = 1 / ((1/r1)+(1/r2)+(1/r3));
+    show("r16", "Total Resistance = <b>" + total.toFixed(3) + " Ω</b>");
+}
+
+function searchCards(){
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.querySelectorAll(".calc-card");
+
+    cards.forEach(card => {
+        let name = card.getAttribute("data-name").toLowerCase();
+        let title = card.querySelector("h2").innerText.toLowerCase();
+
+        if(name.includes(input) || title.includes(input)){
+            card.classList.remove("hidden");
+        }else{
+            card.classList.add("hidden");
+        }
+    });
+}
 </script>
 
 </body>
